@@ -1,0 +1,42 @@
+# Integración continua: se ejecuta en GitHub en cada push y pull request.
+# Si algo falla (análisis, pruebas, cobertura o carga), el commit se marca en rojo.
+name: Flutter CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  calidad:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Instalar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Dependencias
+        run: flutter pub get
+
+      - name: Análisis estático
+        run: flutter analyze
+
+      - name: Pruebas (unitarias, widgets, seguridad, rendimiento, regresión) + cobertura
+        run: flutter test --coverage
+
+      - name: Verificar cobertura mínima (70 %)
+        run: dart run tool/coverage_report.dart --min 70
+
+      - name: Prueba de carga (API simulada)
+        run: dart run tool/load_test.dart --requests 300 --concurrency 30
+
+      - name: Guardar reporte de cobertura
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/lcov.info

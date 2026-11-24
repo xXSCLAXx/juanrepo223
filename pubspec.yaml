@@ -1,0 +1,27 @@
+name: flutter23
+description: GRAVITY APP - Registro, login y perfil de usuario con testing profesional.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Cliente HTTP oficial del equipo de Dart para consumir la API REST.
+  http: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  # Pruebas de integración en dispositivo/emulador (viene con el SDK).
+  integration_test:
+    sdk: flutter
+  # Mocks sin generación de código.
+  mocktail: ^1.0.4
+  # Reglas de análisis estático recomendadas por Flutter.
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

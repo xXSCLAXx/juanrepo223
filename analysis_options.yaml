@@ -1,0 +1,18 @@
+# Análisis estático: se ejecuta con `flutter analyze`.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - coverage/**
+  errors:
+    # Convertimos algunos avisos en errores para no dejarlos pasar.
+    missing_required_param: error
+    dead_code: warning
+
+linter:
+  rules:
+    - always_declare_return_types
+    - avoid_empty_else
+    - cancel_subscriptions
+    - close_sinks
